@@ -46,3 +46,13 @@ def test_string_to_number(smartphone):
     assert smartphone.string_to_number('5') == 5
     assert smartphone.string_to_number('5.0') == 5
     assert smartphone.string_to_number('5.5') == 5
+
+
+def test_magic_methods(smartphone):
+    assert repr(smartphone) == "Item('Смартфон', 10000, 20)"
+    assert str(smartphone) == 'Смартфон'
+    smartphone.name = 'Buba'
+    smartphone.price = 228
+    smartphone.quantity = 0
+    assert repr(smartphone) == "Item('Buba', 228, 0)"
+    assert str(smartphone) == 'Buba'
