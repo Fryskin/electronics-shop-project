@@ -2,7 +2,7 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
-
+from src.keyboard import Keyboard
 
 @pytest.fixture
 def smartphone():
@@ -18,6 +18,9 @@ def laptop():
 def phone():
     return Phone("iPhone 14", 120_000, 5, 2)
 
+@pytest.fixture
+def keyboard():
+    return Keyboard('Dark Project KD87A', 9600, 5)
 
 def test_calculate_total_price(smartphone, laptop):
     assert smartphone.calculate_total_price() == 200000
@@ -43,7 +46,7 @@ def test_name_length(smartphone):
 
 def test_item_all(smartphone):
     smartphone.instantiate_from_csv()
-    assert len(smartphone.all) == 6
+    assert len(smartphone.all) == 12
     item1 = smartphone.all[1]
     assert smartphone.name == 'Смартфон'
 
@@ -68,6 +71,23 @@ def test_add(smartphone, phone):
 
     assert smartphone + phone == 25
     assert phone + phone == 10
+
+
 def test_repr_and_str(phone):
     assert str(phone) == 'iPhone 14'
     assert repr(phone) == "Phone('iPhone 14', 120000, 5, 2)"
+
+
+def test_keyboard(keyboard):
+    assert str(keyboard) == "Dark Project KD87A"
+
+    assert str(keyboard.language) == "EN"
+
+    keyboard.change_lang()
+    assert str(keyboard.language) == "RU"
+
+    keyboard.change_lang().change_lang()
+    assert str(keyboard.language) == "RU"
+
+    keyboard.language = 'CH'
+    assert AttributeError

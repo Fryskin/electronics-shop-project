@@ -13,13 +13,6 @@ class Phone(Item):
     def __str__(self):
         return f'{self.name}'
 
-    def __add__(self, other):
-        if issubclass(Phone, Item):
-            return self.quantity + other.quantity
-
-        else:
-            return None
-
     @property
     def number_of_sim(self):
         return self._number_of_sim
@@ -30,5 +23,3 @@ class Phone(Item):
             raise ValueError
         else:
             self._number_of_sim = value
-
-
