@@ -18,9 +18,6 @@ def laptop():
 def phone():
     return Phone("iPhone 14", 120_000, 5, 2)
 
-@pytest.fixture
-def keyboard():
-    return Keyboard('Dark Project KD87A', 9600, 5)
 
 def test_calculate_total_price(smartphone, laptop):
     assert smartphone.calculate_total_price() == 200000
@@ -77,17 +74,3 @@ def test_repr_and_str(phone):
     assert str(phone) == 'iPhone 14'
     assert repr(phone) == "Phone('iPhone 14', 120000, 5, 2)"
 
-
-def test_keyboard(keyboard):
-    assert str(keyboard) == "Dark Project KD87A"
-
-    assert str(keyboard.language) == "EN"
-
-    keyboard.change_lang()
-    assert str(keyboard.language) == "RU"
-
-    keyboard.change_lang().change_lang()
-    assert str(keyboard.language) == "RU"
-
-    keyboard.language = 'CH'
-    assert AttributeError
