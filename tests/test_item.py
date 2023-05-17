@@ -2,7 +2,7 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
-from src.keyboard import Keyboard
+
 
 @pytest.fixture
 def smartphone():
@@ -73,4 +73,5 @@ def test_add(smartphone, phone):
 def test_repr_and_str(phone):
     assert str(phone) == 'iPhone 14'
     assert repr(phone) == "Phone('iPhone 14', 120000, 5, 2)"
+
 

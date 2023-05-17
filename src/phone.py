@@ -1,6 +1,11 @@
 from src.item import Item
 
 
+class NumberOfSimError(Exception):
+    def __init__(self, value):
+        self.massage = "Количество физических SIM-карт должно быть целым числом больше нуля."
+
+
 class Phone(Item):
 
     def __init__(self, item_name, price, quantity, number_of_sim: int):
@@ -19,7 +24,12 @@ class Phone(Item):
 
     @number_of_sim.setter
     def number_of_sim(self, value):
-        if value <= 0:
-            raise ValueError
+        try:
+            if value <= 0:
+                raise ValueError
+
+        except ValueError:
+            print("Количество физических SIM-карт должно быть целым числом больше нуля.")
+
         else:
             self._number_of_sim = value
