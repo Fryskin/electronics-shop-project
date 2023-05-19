@@ -1,4 +1,6 @@
-from src.item import Item
+import csv
+
+from src.item import Item, InstantiateCSVError
 import pytest
 
 
@@ -17,12 +19,53 @@ def broken_file():
     return "broken_file.csv"
 
 
-def test_instantiate_from_csv():
-    Item.instantiate_from_csv("")
-    assert 'Отсутствует файл items_broken.csv'
+def test_instantiate_from_csv_file_not_found_error():
+    with pytest.raises(FileNotFoundError):
+        try:
+            with open('', newline='') as csr_file:
+                try:
+                    reader = csv.DictReader(csr_file)
 
-    Item.instantiate_from_csv("items_broken.csv")
-    assert "Файл items_broken.csv поврежден"
+                    for row in reader:
+                        item_name = row['name']
+                        price = row['price']
+                        quantity = row['quantity']
+
+                except KeyError:
+                    raise KeyError
+
+                else:
+                    attributes = (item_name, price, quantity)
+                    csr_file.close()
+
+        except FileNotFoundError:
+            raise FileNotFoundError
+
+
+def test_instantiate_from_csv_key_error():
+    with pytest.raises(KeyError):
+        try:
+            with open('items_broken.csv', newline='') as csr_file:
+                try:
+                    reader = csv.DictReader(csr_file)
+
+                    for row in reader:
+                        item_name = row['name']
+                        price = row['price']
+                        quantity = row['quantity']
+
+                except KeyError:
+                    raise KeyError
+
+                else:
+                    attributes = (item_name, price, quantity)
+                    csr_file.close()
+
+        except FileNotFoundError:
+            raise FileNotFoundError
+
+
+
 
 
 

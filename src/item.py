@@ -4,7 +4,7 @@ import math
 
 class InstantiateCSVError(Exception):
     def __init__(self):
-        self.massage = 'Файл item.csv поврежден'
+        self.message = 'Файл item.csv поврежден'
 
 
 class Item:
@@ -78,6 +78,7 @@ class Item:
                         quantity = row['quantity']
 
                 except KeyError:
+
                     print("Файл items_broken.csv поврежден")
 
                 else:
