@@ -65,7 +65,7 @@ class Item:
         self.price *= Item.pay_rate
 
     @classmethod
-    def instantiate_from_csv(cls, file_name='items_broken.csv'):
+    def instantiate_from_csv(cls, file_name='items.csv'):
         try:
             with open(file_name, newline='') as csr_file:
                 try:
@@ -78,15 +78,16 @@ class Item:
                         quantity = row['quantity']
 
                 except KeyError:
-
-                    print("Файл items_broken.csv поврежден")
+                    print("Файл items.csv поврежден")
+                    raise KeyError
 
                 else:
                     cls(item_name, price, quantity)
                     csr_file.close()
 
         except FileNotFoundError:
-            print("Отсутствует файл items_broken.csv")
+            print("Отсутствует файл items.csv")
+            raise FileNotFoundError
 
     @staticmethod
     def string_to_number(number):
